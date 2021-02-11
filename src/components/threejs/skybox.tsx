@@ -1,11 +1,21 @@
 import React from 'react';
 import * as THREE from 'three';
 
-export const SkyBox = (): React.ReactElement => {
+type SkyBoxProps = {
+  size: number;
+} & typeof defaultProps;
+
+const defaultProps = {
+  size: 50,
+};
+
+export const SkyBox = (props: SkyBoxProps): React.ReactElement => {
   return (
-    <mesh scale={[50, 50, 50]}>
+    <mesh scale={[props.size, props.size, props.size]}>
       <boxBufferGeometry attach="geometry" />
       <meshBasicMaterial attach="material" color="#333333" side={THREE.BackSide} />
     </mesh>
   );
 };
+
+SkyBox.defaultProps = defaultProps;

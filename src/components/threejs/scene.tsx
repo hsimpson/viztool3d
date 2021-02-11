@@ -5,13 +5,14 @@ import { CoordinateSystem } from './coordinatesystem';
 import { SkyBox } from './skybox';
 
 export const Scene = (): React.ReactElement => {
+  const size = 4;
   return (
     <>
       <OrbitControls />
-      <SkyBox />
+      <SkyBox size={size * 2} />
       <ambientLight color="#ffffff" intensity={0.5} />
       <pointLight position={[10, 10, 10]} />
-      <CoordinateSystem />
+      <CoordinateSystem size={size} showGrid={true} />
       {/* <Cube /> */}
     </>
   );

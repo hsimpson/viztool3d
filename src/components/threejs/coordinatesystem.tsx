@@ -16,21 +16,36 @@ function randomVecs(count: number): THREE.Vector3[] {
   return array;
 }
 
-export const CoordinateSystem = (): React.ReactElement => {
+type CoordinateSystemProps = {
+  size: number;
+  showGrid: boolean;
+} & typeof defaultProps;
+
+const defaultProps = {
+  size: 5,
+  showGrid: true,
+};
+
+export const CoordinateSystem = (props: CoordinateSystemProps): React.ReactElement => {
   const vecs = randomVecs(50);
 
+  const size = props.size / 2;
   return (
     <>
-      <Arrow start={new THREE.Vector3(0, 0, 0)} end={new THREE.Vector3(1, 0, 0)} color={0xff0000} />
-      <Arrow start={new THREE.Vector3(0, 0, 0)} end={new THREE.Vector3(0, 1, 0)} color={0x00ff00} />
-      <Arrow start={new THREE.Vector3(0, 0, 0)} end={new THREE.Vector3(0, 0, 1)} color={0x0000ff} />
+      <Arrow start={new THREE.Vector3(0, 0, 0)} end={new THREE.Vector3(size, 0, 0)} color={0xff0000} />
+      <Arrow start={new THREE.Vector3(0, 0, 0)} end={new THREE.Vector3(0, size, 0)} color={0x00ff00} />
+      <Arrow start={new THREE.Vector3(0, 0, 0)} end={new THREE.Vector3(0, 0, size)} color={0x0000ff} />
 
-      <Arrow start={new THREE.Vector3(0, 0, 0)} end={new THREE.Vector3(0, -1, 0)} color={0xff00ff} />
+      {props.showGrid && <gridHelper args={[props.size, props.size * 2]}></gridHelper>}
+
+      <Arrow start={new THREE.Vector3(0, 0, 0)} end={new THREE.Vector3(2, 1, -1)} color={0xff00ff} />
       {/* <Arrow start={new THREE.Vector3(0, 0, 0)} end={rnd} color={0xffff00} /> */}
 
-      {vecs.map((v, i) => {
+      {/* {vecs.map((v, i) => {
         return <Arrow key={i} start={new THREE.Vector3(0, 0, 0)} end={v} color={0xffff00} />;
-      })}
+      })} */}
     </>
   );
 };
+
+CoordinateSystem.defaultProps = defaultProps;

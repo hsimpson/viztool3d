@@ -2,6 +2,8 @@ import React from 'react';
 import { Line } from '@react-three/drei';
 import { Color } from 'react-three-fiber';
 import * as THREE from 'three';
+import { a, useSpring } from 'react-spring/three';
+// import { a, useSpring } from '@react-spring/three';
 
 interface ArrowProps {
   start: THREE.Vector3;
@@ -10,8 +12,8 @@ interface ArrowProps {
 }
 
 export const Arrow = (props: ArrowProps): React.ReactElement => {
-  const tipRadius = 0.05;
-  const tipLength = 0.1;
+  const tipRadius = 0.04;
+  const tipLength = 0.075;
   const up = new THREE.Vector3(0, 1, 0);
 
   const direction = new THREE.Vector3();
@@ -28,14 +30,32 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
   const endPoint = props.end.toArray();
   const rotation = rotationVector.toArray();
 
+  const animProps = useSpring({
+    // loop: { reverse: true },
+    from: {
+      scale: [0, 0, 0],
+      tipPos: props.start.toArray(),
+    },
+    to: {
+      scale: [1, 1, 1],
+      tipPos: props.end.toArray(),
+    },
+    config: { duration: 2000 },
+    delay: 5000,
+  });
+
   return (
     <group>
-      <Line points={[startPoint, endPoint]} color={props.color} lineWidth={2} />
-      <mesh position={props.end} rotation={rotation}>
-        <coneBufferGeometry attach="geometry" args={[tipRadius, tipLength]} />
-        {/* <meshBasicMaterial attach="material" color={props.color} /> */}
-        <meshStandardMaterial attach="material" color={props.color} />
-      </mesh>
+      <a.group scale={animProps.scale}>
+        <Line points={[startPoint, endPoint]} color={props.color} lineWidth={3} />
+      </a.group>
+      <a.group position={animProps.tipPos} rotation={rotation}>
+        <mesh>
+          <coneBufferGeometry attach="geometry" args={[tipRadius, tipLength]} />
+          {/* <meshBasicMaterial attach="material" color={props.color} /> */}
+          <meshStandardMaterial attach="material" color={props.color} />
+        </mesh>
+      </a.group>
     </group>
   );
 };
