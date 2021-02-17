@@ -3,8 +3,7 @@ import { Line } from '@react-three/drei';
 import { Color } from 'react-three-fiber';
 import * as THREE from 'three';
 import { a, useSpring } from 'react-spring/three';
-// import { a, useSpring } from '@react-spring/three';
-import { easeOutElastic } from '../../utils/easings';
+import { easeOutElastic, easeOutBounce, easeOutExpo } from '../../utils/easings';
 
 interface ArrowProps {
   start: THREE.Vector3;
@@ -31,8 +30,7 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
   const endPoint = props.end.toArray();
   const rotation = rotationVector.toArray();
 
-  const animProps = useSpring({
-    // loop: { reverse: true },
+  const arrowLineAnimation = useSpring({
     from: {
       scale: [0, 0, 0],
       tipPos: props.start.toArray(),
@@ -43,21 +41,40 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
     },
     config: {
       duration: 2000,
-      easing: easeOutElastic,
+      easing: easeOutBounce,
     },
-    delay: 5000,
+    delay: 2000,
+  });
+
+  const tipVisibilityAnimation = useSpring({
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+    config: {
+      duration: 500,
+      easing: easeOutExpo,
+    },
+    delay: 2500,
   });
 
   return (
     <group>
-      <a.group scale={animProps.scale}>
+      <a.group scale={arrowLineAnimation.scale}>
         <Line points={[startPoint, endPoint]} color={props.color} lineWidth={3} />
       </a.group>
-      <a.group position={animProps.tipPos} rotation={rotation}>
+      <a.group position={arrowLineAnimation.tipPos} rotation={rotation}>
         <mesh>
           <coneBufferGeometry attach="geometry" args={[tipRadius, tipLength]} />
           {/* <meshBasicMaterial attach="material" color={props.color} /> */}
-          <meshStandardMaterial attach="material" color={props.color} />
+          <a.meshStandardMaterial
+            attach="material"
+            color={props.color}
+            opacity={tipVisibilityAnimation.opacity}
+            transparent={true}
+          />
         </mesh>
       </a.group>
     </group>
