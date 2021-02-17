@@ -4,6 +4,7 @@ import { Color } from 'react-three-fiber';
 import * as THREE from 'three';
 import { a, useSpring } from 'react-spring/three';
 // import { a, useSpring } from '@react-spring/three';
+import { easeOutElastic } from '../../utils/easings';
 
 interface ArrowProps {
   start: THREE.Vector3;
@@ -40,7 +41,10 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
       scale: [1, 1, 1],
       tipPos: props.end.toArray(),
     },
-    config: { duration: 2000 },
+    config: {
+      duration: 2000,
+      easing: easeOutElastic,
+    },
     delay: 5000,
   });
 
