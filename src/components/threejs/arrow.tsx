@@ -38,9 +38,11 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
   const arrowLineAnimation = useSpring({
     from: {
       endPoint: startPoint,
+      opacity: 0,
     },
     to: {
       endPoint: endPoint,
+      opacity: 1,
     },
     config: {
       duration: 2000,
@@ -50,6 +52,7 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
     onFrame: (value) => {
       const positions = [...startPoint, ...value.endPoint];
       lineRef.current.geometry.setPositions(positions);
+      lineRef.current.material.opacity = value.opacity;
     },
   });
 
@@ -69,7 +72,14 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
 
   return (
     <group>
-      <Line ref={lineRef} points={[startPoint, startPoint]} color={color} lineWidth={3} />
+      <Line
+        ref={lineRef}
+        points={[startPoint, startPoint]}
+        color={color}
+        lineWidth={5}
+        transparent={true}
+        opacity={0}
+      />
 
       <a.group position={arrowLineAnimation.endPoint} rotation={rotation}>
         <mesh>
