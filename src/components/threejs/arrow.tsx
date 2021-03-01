@@ -15,22 +15,28 @@ interface ArrowProps {
 export const Arrow = (props: ArrowProps): React.ReactElement => {
   const { start, end, color } = props;
 
-  const tipRadius = 0.04;
+  const tipRadius = 0.03;
   const tipLength = 0.075;
+  const tipRadialSegments = 16;
   const up = new Vector3(0, 1, 0);
 
+  // calc direction of vector
   const direction = new Vector3();
-  direction.subVectors(end, start).normalize();
+  direction.subVectors(end, start);
 
+  // calc the rotation of the tip cone
   const rot = new Quaternion();
-  rot.setFromUnitVectors(up, direction);
+  rot.setFromUnitVectors(up, direction.clone().normalize());
   const euler = new Euler();
   euler.setFromQuaternion(rot);
-
   const rotationVector = euler.toVector3();
 
+  // subtract the half tip length from the direction vector
+  direction.setLength(direction.length() - tipLength / 2);
+  const endVector = start.clone().add(direction);
+
   const startPoint = start.toArray();
-  const endPoint = end.toArray();
+  const endPoint = endVector.toArray();
   const rotation = rotationVector.toArray();
 
   const lineRef = useRef<Line2>(null);
@@ -76,14 +82,14 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
         ref={lineRef}
         points={[startPoint, startPoint]}
         color={color}
-        lineWidth={5}
+        lineWidth={3}
         transparent={true}
         opacity={0}
       />
 
       <a.group position={arrowLineAnimation.endPoint} rotation={rotation}>
         <mesh>
-          <coneBufferGeometry attach="geometry" args={[tipRadius, tipLength]} />
+          <coneBufferGeometry attach="geometry" args={[tipRadius, tipLength, tipRadialSegments]} />
           <a.meshStandardMaterial
             attach="material"
             color={color}
