@@ -20,7 +20,7 @@ export const CoordinateSystem = (props: CoordinateSystemProps): React.ReactEleme
       <Arrow start={new Vector3(0, 0, 0)} end={new Vector3(0, size, 0)} color={0x00ff00} />
       <Arrow start={new Vector3(0, 0, 0)} end={new Vector3(0, 0, size)} color={0x0000ff} />
 
-      {props.showGrid && <gridHelper args={[props.size, props.size * 2]}></gridHelper>}
+      {props.showGrid && <gridHelper args={[props.size, props.size * 2]} />}
     </>
   );
 };
