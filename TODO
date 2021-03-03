@@ -1,3 +1,6 @@
 Components:
   World:
     ☐ Add Gizmo like https://github.com/pmndrs/drei/pull/303
+  
+  Arrow:
+    ☐ If length to small, do not render
