@@ -13,14 +13,15 @@ const defaultProps = {
 };
 
 export const CoordinateSystem = (props: CoordinateSystemProps): React.ReactElement => {
-  const size = props.size / 2;
+  const { size, showGrid } = props;
+  const halfSize = size / 2;
   return (
     <>
-      <Arrow start={new Vector3(0, 0, 0)} end={new Vector3(size, 0, 0)} color={0xff0000} />
-      <Arrow start={new Vector3(0, 0, 0)} end={new Vector3(0, size, 0)} color={0x00ff00} />
-      <Arrow start={new Vector3(0, 0, 0)} end={new Vector3(0, 0, size)} color={0x0000ff} />
+      <Arrow start={new Vector3(0, 0, 0)} end={new Vector3(halfSize, 0, 0)} color={0xff0000} />
+      <Arrow start={new Vector3(0, 0, 0)} end={new Vector3(0, halfSize, 0)} color={0x00ff00} />
+      <Arrow start={new Vector3(0, 0, 0)} end={new Vector3(0, 0, halfSize)} color={0x0000ff} />
 
-      {props.showGrid && <gridHelper args={[props.size, props.size * 2]} />}
+      {showGrid && <gridHelper args={[size, size * 2]} />}
     </>
   );
 };
