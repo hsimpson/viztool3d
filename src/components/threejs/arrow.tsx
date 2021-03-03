@@ -2,18 +2,21 @@ import { Line } from '@react-three/drei';
 import React, { useRef } from 'react';
 import { a, useSpring } from 'react-spring/three';
 import { Color } from 'react-three-fiber';
-import { Euler, Quaternion, Vector3 } from 'three';
+import { Euler, Mesh, Quaternion, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { easeOutBounce, easeOutExpo } from '../../utils/easings';
 
-interface ArrowProps {
+export interface ArrowT {
   start: Vector3;
   end: Vector3;
-  color: Color;
 }
+type ArrowProps = ArrowT & {
+  color: Color;
+  opacity?: number;
+};
 
 export const Arrow = (props: ArrowProps): React.ReactElement => {
-  const { start, end, color } = props;
+  const { start, end, color, opacity } = props;
 
   const tipRadius = 0.03;
   const tipLength = 0.075;
@@ -40,6 +43,7 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
   const rotation = rotationVector.toArray();
 
   const lineRef = useRef<Line2>(null);
+  const tipRef = useRef<Mesh>(null);
 
   const arrowLineAnimation = useSpring({
     from: {
@@ -48,7 +52,7 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
     },
     to: {
       endPoint: endPoint,
-      opacity: 1,
+      opacity: opacity ?? 1,
     },
     config: {
       duration: 2000,
@@ -67,7 +71,7 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
       opacity: 0,
     },
     to: {
-      opacity: 1,
+      opacity: opacity ?? 1,
     },
     config: {
       duration: 500,
@@ -76,19 +80,25 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
     delay: 2500,
   });
 
+  // useFrame(({ camera }) => {
+  //   const distance = camera.position.distanceTo(end);
+  //   const scale = distance / 2;
+  //   tipRef.current.scale.set(scale, scale, scale);
+  // });
+
   return (
     <group>
       <Line
         ref={lineRef}
         points={[startPoint, startPoint]}
         color={color}
-        lineWidth={3}
+        lineWidth={2}
         transparent={true}
         opacity={0}
       />
 
       <a.group position={arrowLineAnimation.endPoint} rotation={rotation}>
-        <mesh>
+        <mesh ref={tipRef}>
           <coneBufferGeometry attach="geometry" args={[tipRadius, tipLength, tipRadialSegments]} />
           <a.meshStandardMaterial
             attach="material"
