@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { Color, Group, Object3D, Vector3 } from 'three';
 import { Arrow, ArrowT } from '../arrow';
-import { Plane } from '../plane';
+// import { Plane } from '../primitives/plane';
+import { Sphere } from '../primitives/sphere';
 
 interface DirectionalLightProps {
   position: Vector3;
@@ -38,6 +39,7 @@ export const DirectionalLight = (props: DirectionalLightProps): React.ReactEleme
   lightTarget.position.copy(target);
 
   const color = new Color('#ebe70c');
+  const opacity = 0.5;
 
   const groupRef = useRef<Group>();
 
@@ -48,8 +50,9 @@ export const DirectionalLight = (props: DirectionalLightProps): React.ReactEleme
   return (
     <group ref={groupRef} position={position}>
       <directionalLight target={lightTarget} />
+      <Sphere color={color} radius={0.1} opacity={opacity} />
       {arrows.map((arrow, index) => {
-        return <Arrow key={index} start={arrow.start} end={arrow.end} color={color} opacity={0.3} />;
+        return <Arrow key={index} start={arrow.start} end={arrow.end} color={color} opacity={opacity} />;
       })}
     </group>
   );
