@@ -17,14 +17,14 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "files.exclude": {
     "dist": true,
     "node_modules": true
   },
-  "typescript.tsdk": "node_modules\\typescript\\lib",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  }
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }
