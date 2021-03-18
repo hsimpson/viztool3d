@@ -22,7 +22,7 @@ import { Arrow } from './arrow';
 // }
 
 export const Scene = (): React.ReactElement => {
-  const size = 4;
+  const size = 10;
   return (
     <>
       <OrbitControls />
