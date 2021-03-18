@@ -1,6 +1,14 @@
-Components:
+3D-Components:
   World:
     ☐ Add Gizmo like https://github.com/pmndrs/drei/pull/303
   
   Arrow:
     ☐ If length to small, do not render
+
+GUI:
+  Common:
+    ☐ Choose a suitable GUI lib: e.g. https://github.com/pmndrs/leva
+
+Build:
+  Tailwind:
+    ☐ Reduce CSS size through tailwind build
