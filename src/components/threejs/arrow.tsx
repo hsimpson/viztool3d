@@ -2,9 +2,10 @@ import { Line } from '@react-three/drei';
 import React, { useRef } from 'react';
 import { a, useSpring } from 'react-spring/three';
 import { Color } from 'react-three-fiber';
-import { Euler, Mesh, Quaternion, Vector3 } from 'three';
+import { Mesh, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { easeOutBounce, easeOutExpo } from '../../utils/easings';
+import { getEulerRotationFromVectors } from '../../utils/math';
 
 export interface ArrowT {
   start: Vector3;
@@ -27,12 +28,7 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
   const direction = new Vector3();
   direction.subVectors(end, start);
 
-  // calc the rotation of the tip cone
-  const rot = new Quaternion();
-  rot.setFromUnitVectors(up, direction.clone().normalize());
-  const euler = new Euler();
-  euler.setFromQuaternion(rot);
-  const rotationVector = euler.toVector3();
+  const rotationVector = getEulerRotationFromVectors(up, direction).toVector3();
 
   // subtract the half tip length from the direction vector
   direction.setLength(direction.length() - tipLength / 2);
