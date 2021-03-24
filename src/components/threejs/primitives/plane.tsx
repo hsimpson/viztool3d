@@ -39,7 +39,7 @@ export const Plane = (props: PlaneProps): React.ReactElement => {
 
       return (
         <mesh ref={meshRef} position={position}>
-          <Line points={points} lineWidth={2} color={color} opacity={opacity ?? 1} transparent={true} />
+          <Line points={points} lineWidth={2} color={color} opacity={opacity ?? 1} transparent={true} flatShading />
         </mesh>
       );
     } else {

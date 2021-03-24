@@ -91,6 +91,7 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
         lineWidth={2}
         transparent={true}
         opacity={0}
+        flatShading
       />
 
       <a.group position={arrowLineAnimation.endPoint} rotation={rotation}>
