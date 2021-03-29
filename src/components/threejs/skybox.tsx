@@ -1,5 +1,5 @@
 import React from 'react';
-import * as THREE from 'three';
+import { BackSide } from 'three';
 
 type SkyBoxProps = {
   size: number;
@@ -13,7 +13,7 @@ export const SkyBox = (props: SkyBoxProps): React.ReactElement => {
   return (
     <mesh scale={[props.size, props.size, props.size]}>
       <boxBufferGeometry attach="geometry" />
-      <meshBasicMaterial attach="material" color="#333333" side={THREE.BackSide} />
+      <meshBasicMaterial attach="material" color="#333333" side={BackSide} />
     </mesh>
   );
 };

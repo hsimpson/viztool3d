@@ -1,5 +1,5 @@
 import React from 'react';
-import { Color } from 'react-three-fiber';
+import { Color } from 'three';
 
 interface SphereProps {
   color: Color;

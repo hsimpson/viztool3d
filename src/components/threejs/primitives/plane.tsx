@@ -1,7 +1,6 @@
-import React, { useRef, useEffect } from 'react';
-import { Color } from 'react-three-fiber';
-import { Vector3, Mesh, DoubleSide } from 'three';
 import { Line } from '@react-three/drei';
+import React, { useEffect, useRef } from 'react';
+import { Color, DoubleSide, Mesh, Vector3 } from 'three';
 
 interface PlaneProps {
   width?: number;
@@ -39,7 +38,7 @@ export const Plane = (props: PlaneProps): React.ReactElement => {
 
       return (
         <mesh ref={meshRef} position={position}>
-          <Line points={points} lineWidth={2} color={color} opacity={opacity ?? 1} transparent={true} flatShading />
+          <Line points={points} lineWidth={2} color={color} opacity={opacity ?? 1} transparent={true} />
         </mesh>
       );
     } else {

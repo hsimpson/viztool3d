@@ -1,9 +1,8 @@
+import { a, useSpring } from '@react-spring/three';
 import { Line } from '@react-three/drei';
 import React, { useRef } from 'react';
-import { a, useSpring } from 'react-spring/three';
-import { Color } from 'react-three-fiber';
-import { Mesh, Vector3 } from 'three';
-import { Line2 } from 'three/examples/jsm/lines/Line2';
+import { Color, Mesh, Vector3 } from 'three';
+import { Line2 } from 'three-stdlib';
 import { easeOutBounce, easeOutExpo } from '../../utils/easings';
 import { getEulerRotationFromVectors } from '../../utils/math';
 
@@ -34,8 +33,8 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
   direction.setLength(direction.length() - tipLength / 2);
   const endVector = start.clone().add(direction);
 
-  const startPoint = start.toArray();
-  const endPoint = endVector.toArray();
+  const startVector = start;
+  // const endPoint = endVector.toArray();
   const rotation = rotationVector.toArray();
 
   const lineRef = useRef<Line2>(null);
@@ -43,11 +42,11 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
 
   const arrowLineAnimation = useSpring({
     from: {
-      endPoint: startPoint,
+      endPoint: startVector.toArray(),
       opacity: 0,
     },
     to: {
-      endPoint: endPoint,
+      endPoint: endVector.toArray(),
       opacity: opacity ?? 1,
     },
     config: {
@@ -55,8 +54,8 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
       easing: easeOutBounce,
     },
     delay: 2000,
-    onFrame: (value) => {
-      const positions = [...startPoint, ...value.endPoint];
+    onChange: (value) => {
+      const positions = [...startVector.toArray(), ...value.endPoint];
       lineRef.current.geometry.setPositions(positions);
       lineRef.current.material.opacity = value.opacity;
     },
@@ -86,12 +85,11 @@ export const Arrow = (props: ArrowProps): React.ReactElement => {
     <group>
       <Line
         ref={lineRef}
-        points={[startPoint, startPoint]}
+        points={[startVector, startVector]}
         color={color}
         lineWidth={2}
         transparent={true}
         opacity={0}
-        flatShading
       />
 
       <a.group position={arrowLineAnimation.endPoint} rotation={rotation}>

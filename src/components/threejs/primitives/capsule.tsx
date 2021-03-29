@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
-import { Color } from 'react-three-fiber';
-import { MeshStandardMaterial } from 'three';
+import { Color, MeshStandardMaterial } from 'three';
 
 interface CapsuleProps {
   color: Color;
