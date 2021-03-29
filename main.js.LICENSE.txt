@@ -17,13 +17,7 @@ Original licenses apply:
 - woff2otf.js: https://github.com/arty-name/woff2otf/blob/master/woff2otf.js (Apache2)
 */
 
-/*!
-fflate - fast JavaScript compression/decompression
-<https://101arrowz.github.io/fflate>
-Licensed under MIT. https://github.com/101arrowz/fflate/blob/master/LICENSE
-*/
-
-/** @license React v0.20.1
+/** @license React v0.20.2
  * scheduler.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -32,7 +26,7 @@ Licensed under MIT. https://github.com/101arrowz/fflate/blob/master/LICENSE
  * LICENSE file in the root directory of this source tree.
  */
 
-/** @license React v0.26.1
+/** @license React v0.26.2
  * react-reconciler.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -41,7 +35,7 @@ Licensed under MIT. https://github.com/101arrowz/fflate/blob/master/LICENSE
  * LICENSE file in the root directory of this source tree.
  */
 
-/** @license React v17.0.1
+/** @license React v17.0.2
  * react-dom.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -50,7 +44,7 @@ Licensed under MIT. https://github.com/101arrowz/fflate/blob/master/LICENSE
  * LICENSE file in the root directory of this source tree.
  */
 
-/** @license React v17.0.1
+/** @license React v17.0.2
  * react.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
