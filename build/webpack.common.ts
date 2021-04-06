@@ -1,8 +1,8 @@
-import webpack from 'webpack';
+import { Configuration, WebpackPluginInstance } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-const commonConfig: webpack.Configuration = {
+const commonConfig: Configuration = {
   entry: './src/index.tsx',
 
   resolve: {
@@ -28,10 +28,10 @@ const commonConfig: webpack.Configuration = {
   },
 
   plugins: [
-    new MiniCssExtractPlugin({
+    (new MiniCssExtractPlugin({
       filename: 'styles.css',
       chunkFilename: 'styles.css',
-    }),
+    }) as unknown) as WebpackPluginInstance,
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: './index.html',
